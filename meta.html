@@ -1,0 +1,3 @@
+{%- assign worte = include.post.content | number_of_words -%}
+{%- assign minuten = worte | divided_by: 200 | at_least: 1 -%}
+<span class="meta">{% assign a = include.post.autor | default: site.autor_standard %}{% if a %}{{ a }}, {% endif %}{% include datum.html d=include.post.date %}, {{ minuten }} Min. Lesezeit</span>

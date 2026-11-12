@@ -1,0 +1,8 @@
+{%- assign monate = "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember" | split: "," -%}
+{%- assign kurz = "Jan.,Feb.,März,Apr.,Mai,Juni,Juli,Aug.,Sept.,Okt.,Nov.,Dez." | split: "," -%}
+{%- assign m = include.d | date: "%-m" | minus: 1 -%}
+{%- if include.kurz -%}
+{{ include.d | date: "%-d" }}. {{ kurz[m] }}
+{%- else -%}
+{{ include.d | date: "%-d" }}. {{ monate[m] }} {{ include.d | date: "%Y" }}
+{%- endif -%}

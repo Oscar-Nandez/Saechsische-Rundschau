@@ -1,0 +1,39 @@
+---
+layout: default
+---
+{%- assign lead = site.posts.first -%}
+{%- if lead -%}
+<section class="lead">
+  {% if lead.rubrik %}<span class="kicker">{{ lead.rubrik }}</span>{% endif %}
+  <h2><a href="{{ lead.url | relative_url }}">{{ lead.title }}</a></h2>
+  {% if lead.vorspann %}<p class="teaser">{{ lead.vorspann }}</p>{% endif %}
+  {% include meta.html post=lead %}
+</section>
+
+{%- assign rest = site.posts | where_exp: "p", "p.url != lead.url" -%}
+{%- assign wochen = rest | group_by_exp: "p", "p.date | date: '%G-%V'" -%}
+{%- for woche in wochen -%}
+  {%- assign erster = woche.items.first -%}
+  {%- assign tage_seit_montag = erster.date | date: "%u" | minus: 1 | times: 86400 -%}
+  {%- assign montag = erster.date | date: "%s" | minus: tage_seit_montag -%}
+  {%- assign sonntag = montag | plus: 518400 -%}
+<section class="week">
+  <div class="week-head">
+    <h3>Woche {{ erster.date | date: "%V" | plus: 0 }}</h3>
+    <p>{% include datum.html d=montag kurz=true %} bis {% include datum.html d=sonntag kurz=true %} {{ erster.date | date: "%G" }}</p>
+  </div>
+  <ul class="toc">
+    {%- for post in woche.items %}
+    <li><a href="{{ post.url | relative_url }}">
+      {% if post.rubrik %}<span class="kicker">{{ post.rubrik }}</span>{% endif %}
+      <h4>{{ post.title }}</h4>
+      {% if post.vorspann %}<p>{{ post.vorspann }}</p>{% endif %}
+      {% include meta.html post=post %}
+    </a></li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endfor -%}
+{%- else -%}
+<section class="empty"><h2>Noch keine Artikel.</h2><p>Lege im Ordner <code>_posts</code> deinen ersten Text an.</p></section>
+{%- endif -%}

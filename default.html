@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ page.vorspann | default: site.description | strip_html | escape }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📰</text></svg>">
+{% feed_meta %}
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    {%- assign neuester = site.posts.first -%}
+    <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+    <div class="mast-sub">
+      <span>{{ site.untertitel }}</span>
+      {% if neuester %}<span class="issue">Woche {{ neuester.date | date: "%V" | plus: 0 }}, {{ neuester.date | date: "%G" }}</span>{% endif %}
+    </div>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    {{ site.posts.size }} Artikel im Archiv. <a href="{{ '/feed.xml' | relative_url }}">RSS-Feed abonnieren</a>
+  </footer>
+</div>
+</body>
+</html>

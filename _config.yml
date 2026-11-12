@@ -1,0 +1,18 @@
+# ─────────────────────────────────────────────
+#  Hier stellst du dein Magazin ein
+# ─────────────────────────────────────────────
+title: "Mein Magazin"
+untertitel: "Texte, Woche für Woche"
+description: "Texte, Woche für Woche"
+autor_standard: "Dorian Hernandez"
+
+# Ab hier musst du nichts ändern
+lang: de
+timezone: Europe/Berlin
+permalink: /:year/:month/:day/:title/
+markdown: kramdown
+plugins:
+  - jekyll-feed
+exclude:
+  - ANLEITUNG.md
+  - README.md

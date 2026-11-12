@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<article class="article">
+  <header>
+    {% if page.rubrik %}<span class="kicker">{{ page.rubrik }}</span>{% endif %}
+    <h2>{{ page.title }}</h2>
+    {% if page.vorspann %}<p class="teaser">{{ page.vorspann }}</p>{% endif %}
+    {% include meta.html post=page %}
+  </header>
+  <div class="body">
+    {{ content }}
+  </div>
+  <nav class="pager">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><small>Älter</small>{{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a class="next" href="{{ page.next.url | relative_url }}"><small>Neuer</small>{{ page.next.title }}</a>{% endif %}
+  </nav>
+  <a class="back" href="{{ '/' | relative_url }}">Zurück zur Titelseite</a>
+</article>
